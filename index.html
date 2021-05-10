@@ -46,7 +46,6 @@ var app = new Vue({
         axios({
                 method: 'get',
                 url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission/1',
-                data: formData,
                     headers: {'Content-Type': 'application/json',
                     'Authorization' : 'Bearer '+tokens
                 }
