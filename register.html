@@ -36,7 +36,8 @@
     </div>
 </div>
 <script>
-   tokens = getCookie("token")
+   //tokens = getCookie("token")
+   tokens = getWithExpiry("token")
 //    alert(tokens);
     var app = new Vue({
     el: '#vueapp',
