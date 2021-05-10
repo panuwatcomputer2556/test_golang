@@ -26,22 +26,10 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
+                <td>Mark</td>
                 <td>Mark</td>
                 <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+                <td>ลบ แก้ไข</td>
               </tr>
             </tbody>
           </table>
@@ -63,7 +51,8 @@
             <label for="exampleInputPassword1">teacher</label>
             <input type="text" class="form-control" id="teacher" v-model="teacher">
           </div>
-        <button type="submit" class="btn btn-primary" @click="create_register()">Submit</button>
+        <button type="submit" class="btn btn-primary" @click="create_register()">บันทึกข้อมูล</button>
+        <button type="submit" class="btn btn-primary" @click="getContacts()">แสดงข้อมูล</button>
     </div>
 </div>
 <script>
@@ -81,6 +70,24 @@
         console.log('Hello from Vue!')
     }, 
     methods: {
+            getContacts: function(){
+            axios({
+                    method: 'get',
+                    url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission/1',
+                    headers: {'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer '+tokens
+                    }
+                }).then(function(response) {
+                    console.log(response);
+                })
+                .catch(function (response) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Do you want to Error',
+                        icon: 'error'
+                        })
+                });
+            },
             create_register: function(){
             // console.log("Create contact!")
             let formData = new FormData();
