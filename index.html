@@ -47,57 +47,20 @@ var app = new Vue({
         axios({
                 method: 'get',
                 url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission/1',
-                config: {headers: {'Authorization' : 'Bearer '+tokens }}
-            }).then(function (response) {
-            console.log(response.data);
-            // app.contacts = response.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    },
-        createContact: function(){
-        // console.log("Create contact!")
-        let formData = new FormData();
-        formData.append('username', this.username)
-        formData.append('password', this.password)
-
-        var contact = {};
-        formData.forEach(function(value, key){
-            contact[key] = value;
-        });
-        axios({
-            method: 'post',
-            url: 'https://ef274516154e.ngrok.io/api/v2/login',
-            data: formData,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
-        }).then(function(response) {
-            console.log(response);
-            if(response.data.result=="ok"){
-                // localStorage.setItem('storedData',response.data.token)
-                setWithExpiry("storedData", response.data.token, 2000000)
-                // setCookie("token",response.data.token, 365);
+                data: formData,
+                    headers: {'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer '+tokens
+                }
+            }).then(function(response) {
+                console.log(response);
+            })
+            .catch(function (response) {
                 Swal.fire({
-                title: 'success',
-                text: 'Do you want to success',
-                icon: 'success'
-                }).then(function() {window.location="register.html";})
-                // }).then(window.location.replace("register.html"));
-            }else{
-                Swal.fire({
-                title: 'Error!',
-                text: 'Do you want to Error',
-                icon: 'error'
-                })
-            }
-        })
-        .catch(function (response) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Do you want to Error',
-                icon: 'error'
-                })
-        });
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+            });
 
     }
   }
