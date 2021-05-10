@@ -15,8 +15,6 @@
 <body>
 
     <div class="container">
-       
-    <div id="vueapp">
         <table class="table">
             <thead>
               <tr>
@@ -24,23 +22,19 @@
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
                 <th scope="col">Handle</th>
-                <th scope="col">Handle</th>
-                 <th scope="col">Handle</th>
               </tr>
             </thead>
-            <tbody v-for="datax2 in datax2s">
+            <tbody>
               <tr>
-                <td>{{datax2.Mid}}</td>
-                <td>{{datax2.M_subject}}</td>
-                <td>{{datax2.M_teacher}}</td>
-                <td>{{datax2.M_image}}</td>
-                <td>{{datax2.M_create}}</td>
+                <td>Mark</td>
+                <td>Mark</td>
+                <td>Otto</td>
                 <td>ลบ แก้ไข</td>
               </tr>
             </tbody>
           </table>
           <br>
-
+    <div id="vueapp">
         <div class="form-group">
           <label for="exampleInputEmail1">mid</label>
           <input type="text" class="form-control" id="mid" v-model="mid">
@@ -70,15 +64,16 @@
         mid : '',
         subject: '',
         detail: '',
-        teacher: ''
-    },
-    datax2s:[],
-        datax2s:{
+        teacher: '',
+        datax:[],
+        datax:{
             Mid : 0,
             M_subject : '',
             M_teacher : '',
             M_image  : '',
             M_create : ''
+        }
+
     },
     mounted: function () {
         console.log('Hello from Vue!')
@@ -92,8 +87,7 @@
                         'Authorization' : 'Bearer '+tokens
                     }
                 }).then(function(response) {
-                    //console.log(response);
-                    this.datax2s = response.data;
+                    console.log(response);
                 })
                 .catch(function (response) {
                     Swal.fire({
