@@ -29,6 +29,7 @@
 //alert(getCookie('jwt_id3').replace(/\+/g, " "))
 
 
+tokens = getWithExpiry("storedData")
 
 var app = new Vue({
     
@@ -52,8 +53,6 @@ var app = new Vue({
             }).then(function (response) {
             console.log(response.data);
             app.contacts = response.data;
-           
-           
         })
         .catch(function (error) {
             console.log(error);
