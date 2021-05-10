@@ -46,7 +46,7 @@ var app = new Vue({
         .then(function (response) {
             console.log(response.data);
             app.contacts = response.data;
-            setCookie("token",response.data.token, 365);
+           
            
         })
         .catch(function (error) {
@@ -73,7 +73,7 @@ var app = new Vue({
             if(response.data.result=="ok"){
                 // localStorage.setItem('storedData',response.data.token)
                 // setWithExpiry("storedData", response.data.token, 2)
-               
+                setCookie("token",response.data.token, 365);
                 Swal.fire({
                 title: 'success',
                 text: 'Do you want to success',
