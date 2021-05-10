@@ -22,13 +22,17 @@
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
                 <th scope="col">Handle</th>
+                <th scope="col">Handle</th>
+                <th scope="col">Handle</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-for="datax2 in datax2s">
               <tr>
-                <td>Mark</td>
-                <td>Mark</td>
-                <td>Otto</td>
+                <td>{{datax2.Mid}}</td>
+                <td>{{datax2.M_subject}}</td>
+                <td>{{datax2.M_teacher}}</td>
+                <td>{{datax2.M_image}}</td>
+                <td>{{datax2.M_create}}</td>
                 <td>ลบ แก้ไข</td>
               </tr>
             </tbody>
@@ -66,6 +70,14 @@
         detail: '',
         teacher: ''
     },
+    datax2:[],
+        datax2:{
+            Mid : 0,
+            M_subject : '',
+            M_teacher : '',
+            M_image  : '',
+            M_create : ''
+    },
     mounted: function () {
         console.log('Hello from Vue!')
     }, 
@@ -78,7 +90,8 @@
                         'Authorization' : 'Bearer '+tokens
                     }
                 }).then(function(response) {
-                    console.log(response);
+                    //console.log(response);
+                    this.datax2s = response.data;
                 })
                 .catch(function (response) {
                     Swal.fire({
