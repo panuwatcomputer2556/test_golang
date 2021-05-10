@@ -10,7 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://unpkg.com/vue-cookies@1.7.4/vue-cookies.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="cookie.js"></script>
+    <script src="Expiry_storedData.js"></script>
+    <!-- <script src="cookie.js"></script> -->
     <link href="signin.css" rel="stylesheet">
     <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
@@ -72,8 +73,8 @@ var app = new Vue({
             console.log(response);
             if(response.data.result=="ok"){
                 // localStorage.setItem('storedData',response.data.token)
-                // setWithExpiry("storedData", response.data.token, 2)
-                setCookie("token",response.data.token, 365);
+                setWithExpiry("storedData", response.data.token, 2)
+                // setCookie("token",response.data.token, 365);
                 Swal.fire({
                 title: 'success',
                 text: 'Do you want to success',
