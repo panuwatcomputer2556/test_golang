@@ -46,7 +46,7 @@ var app = new Vue({
         .then(function (response) {
             console.log(response.data);
             app.contacts = response.data;
-            setCookie("token", response.data.token, 365);
+            setCookie("token",response.data.token, 365);
            
         })
         .catch(function (error) {
