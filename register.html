@@ -24,9 +24,9 @@
                 <th scope="col">Handle</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody v-for="datax2 in datax">
               <tr>
-                <td>Mark</td>
+                <td>{{datax2.mid}}</td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>ลบ แก้ไข</td>
@@ -87,6 +87,7 @@
                     }
                 }).then(function(response) {
                     console.log(response);
+                    this.dataxs = response.data;
                 })
                 .catch(function (response) {
                     Swal.fire({
