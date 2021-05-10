@@ -50,7 +50,7 @@ var app = new Vue({
                 config: {headers: {'Authorization' : 'Bearer '+tokens }}
             }).then(function (response) {
             console.log(response.data);
-            app.contacts = response.data;
+            // app.contacts = response.data;
         })
         .catch(function (error) {
             console.log(error);
