@@ -1,6 +1,6 @@
 const storedData = getWithExpiry("storedData");
 if(storedData==null){
-    window.location.replace("/index.html");
+    //window.location.replace("/index.html");
 }else{
 }
 
