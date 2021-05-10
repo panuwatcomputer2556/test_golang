@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="cookie.js"></script>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    
+    <div id="vueapp">
+        <div class="form-group">
+          <label for="exampleInputEmail1">mid</label>
+          <input type="text" class="form-control" id="mid" v-model="mid">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">subject</label>
+          <input type="text" class="form-control" id="subject"  v-model="subject">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">detail</label>
+            <input type="text" class="form-control" id="detail" v-model="detail">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">teacher</label>
+            <input type="text" class="form-control" id="teacher" v-model="teacher">
+          </div>
+        <button type="submit" class="btn btn-primary" @click="create_register()">Submit</button>
+    </div>
+</div>
+<script>
+
+    var app = new Vue({
+    el: '#vueapp',
+    data: {
+        mid : '',
+        subject: '',
+        detail: '',
+        teacher: ''
+    },
+    mounted: function () {
+        console.log('Hello from Vue!')
+    }, 
+    methods: {
+            create_register: function(){
+            // console.log("Create contact!")
+            let formData = new FormData();
+            formData.append('mid', this.mid)
+            formData.append('subject', this.subject)
+            formData.append('detail', this.detail)
+            formData.append('teacher', this.teacher)
+
+            var contact = {};
+            formData.forEach(function(value, key){
+                contact[key] = value;
+            });
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/api/v2/submission',
+                data: formData,
+                    headers: {'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer '+storedData
+                }
+            }).then(function(response) {
+                console.log(response);
+                if(response.data.result=="ok"){
+                    Swal.fire({
+                    title: 'success',
+                    text: 'Do you want to success',
+                    icon: 'success'
+                    })
+                }else{
+                    Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+                }
+            })
+            .catch(function (response) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+            });
+
+        }
+    }
+    })    
+
+			
+
+</script>
+
+</body>
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+</html>
+
