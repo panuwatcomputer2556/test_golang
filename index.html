@@ -42,7 +42,7 @@ var app = new Vue({
   },  
   methods: {
     getContacts: function(){
-        axios.get('http://localhost:8080/api/v2/getsubmission/1')
+        axios.get('https://c17321d0a9ac.ngrok.io/api/v2/getsubmission/1')
         .then(function (response) {
             console.log(response.data);
             app.contacts = response.data;
