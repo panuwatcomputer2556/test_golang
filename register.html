@@ -58,14 +58,12 @@
    tokens = getWithExpiry("storedData")
     var app = new Vue({
     el: '#vueapp',
-    data(){
-        return { 
+    data:{
         mid : '',
         subject: '',
         detail: '',
         teacher: '',
         stocks: []
-        }
     },
     mounted: function () {
         console.log('Hello from Vue!')
