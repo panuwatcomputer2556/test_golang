@@ -28,7 +28,7 @@
             </thead>
             <tbody v-for="datax2 in datax">
               <tr>
-                <td>{{datax2.mid}}</td>
+                <td>{{stocks.mid}}</td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>ลบ แก้ไข</td>
@@ -66,7 +66,8 @@
         mid : '',
         subject: '',
         detail: '',
-        teacher: ''
+        teacher: '',
+        stocks: []
     },
     mounted: function () {
         console.log('Hello from Vue!')
@@ -81,7 +82,7 @@
                     }
                 }).then(function(response) {
                     console.log(response);
-                    this.dataxs = response.data;
+                    this.stocks = response.data;
                 })
                 .catch(function (response) {
                     Swal.fire({
