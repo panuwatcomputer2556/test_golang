@@ -52,11 +52,6 @@
         <button type="submit" class="btn btn-primary" @click="create_register()">บันทึกข้อมูล</button>
         <button type="submit" class="btn btn-primary" @click="getContacts()">แสดงข้อมูล</button>
     </div>
-    <tr v-for="user in users" :key="user.id">
-        <td>{{user.firstName}} {{user.lastName}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.role}}</td>
-    </tr>
 </div>
 
 <script>
