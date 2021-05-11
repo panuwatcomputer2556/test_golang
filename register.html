@@ -18,22 +18,18 @@
        
     <div id="vueapp">
         <table class="table">
-            <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
                 <th scope="col">Handle</th>
               </tr>
-            </thead>
-            <tbody >
               <tr v-for="stock in stocks">
                 <td>{{stock.Mid}}</td>
                 <td>{{stock.M_subject}}</td>
                 <td>{{stock.M_teacher}}</td>
                 <td>ลบ แก้ไข</td>
               </tr>
-            </tbody>
           </table>
           <br>
           
