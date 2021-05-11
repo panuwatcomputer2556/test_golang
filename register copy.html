@@ -60,14 +60,29 @@
 </div>
 
 <script>
+   //tokens = getCookie("token")
    tokens = getWithExpiry("storedData")
     var app = new Vue({
     el: '#vueapp',
     data(){
         return { 
-        stocks: []
+        mid : '',
+        subject: '',
+        detail: '',
+        teacher: '',
+        stocks: [],
+        users: [
+                { firstName: 'Frank', lastName: 'Murphy', email: 'frank.murphy@test.com', role: 'User' },
+                { firstName: 'Vic', lastName: 'Reynolds', email: 'vic.reynolds@test.com', role: 'Admin' },
+                { firstName: 'Gina', lastName: 'Jabowski', email: 'gina.jabowski@test.com', role: 'Admin' },
+                { firstName: 'Jessi', lastName: 'Glaser', email: 'jessi.glaser@test.com', role: 'User' },
+                { firstName: 'Jay', lastName: 'Bilzerian', email: 'jay.bilzerian@test.com', role: 'User' }
+            ]
         }
     },
+    // mounted: function () {
+    //     console.log('Hello from Vue!')
+    // },
     created: function () {
         this.getContacts();
     },
@@ -76,19 +91,63 @@
             axios({
                     method: 'get',
                     url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
-                    headers: 
-                        {'Content-Type': 'application/json',
+                    headers: {'Content-Type': 'application/json',
                         'Authorization' : 'Bearer '+tokens
                     }
                 }).then(function(response) {
+                   // console.log(response.data);
                     this.stocks = response.data;
                     console.log(this.stocks);
                 })
                 .catch(function (response) {
                    
-                });  
-            }
+                });
+            // },
+            // create_register: function(){
+            // // console.log("Create contact!")
+            // let formData = new FormData();
+            // formData.append('mid', this.mid)
+            // formData.append('subject', this.subject)
+            // formData.append('detail', this.detail)
+            // formData.append('teacher', this.teacher)
+
+            // var contact = {};
+            // formData.forEach(function(value, key){
+            //     contact[key] = value;
+            // });
+            // axios({
+            //     method: 'post',
+            //     url: 'https://ef274516154e.ngrok.io/api/v2/submission',
+            //     data: formData,
+            //         headers: {'Content-Type': 'application/json',
+            //         'Authorization' : 'Bearer '+tokens
+            //     }
+            // }).then(function(response) {
+            //     console.log(response);
+            //     if(response.data.result=="ok"){
+            //         Swal.fire({
+            //         title: 'success',
+            //         text: 'Do you want to success',
+            //         icon: 'success'
+            //         })
+            //     }else{
+            //         Swal.fire({
+            //         title: 'Error!',
+            //         text: 'Do you want to Error',
+            //         icon: 'error'
+            //         })
+            //     }
+            // })
+            // .catch(function (response) {
+            //     Swal.fire({
+            //         title: 'Error!',
+            //         text: 'Do you want to Error',
+            //         icon: 'error'
+            //         })
+            // });
+
         }
+    }
     })    
 
 			
