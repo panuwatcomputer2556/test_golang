@@ -71,6 +71,9 @@
         }
         };
     },
+    created: function () {
+        this.getContacts();
+    },
     methods: {
         getContacts: function(){
             axios({
