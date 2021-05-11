@@ -59,7 +59,6 @@
 </div>
 <script>
    //tokens = getCookie("token")
-   getContacts();
    tokens = getWithExpiry("storedData")
     var app = new Vue({
     el: '#vueapp',
@@ -72,7 +71,10 @@
     },
     mounted: function () {
         console.log('Hello from Vue!')
-    }, 
+    },
+    created: function () {
+        this.load();
+    },
     methods: {
             getContacts: function(){
             axios({
