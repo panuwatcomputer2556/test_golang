@@ -60,7 +60,7 @@
     var app = new Vue({
     el: '#vueapp',
     data(){
-        return { 
+      return { 
         mid : '',
         subject: '',
         detail: '',
@@ -85,48 +85,48 @@
                 .catch(function (response) {
                    
                 });
-            },
-            create_register: function(){
-            let formData = new FormData();
-            formData.append('mid', this.mid)
-            formData.append('subject', this.subject)
-            formData.append('detail', this.detail)
-            formData.append('teacher', this.teacher)
+            // },
+            // create_register: function(){
+            // let formData = new FormData();
+            // formData.append('mid', this.mid)
+            // formData.append('subject', this.subject)
+            // formData.append('detail', this.detail)
+            // formData.append('teacher', this.teacher)
 
-            var contact = {};
-            formData.forEach(function(value, key){
-                contact[key] = value;
-            });
-            axios({
-                method: 'post',
-                url: 'https://ef274516154e.ngrok.io/api/v2/submission',
-                data: formData,
-                    headers: {'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer '+tokens
-                }
-            }).then(function(response) {
-                console.log(response);
-                if(response.data.result=="ok"){
-                    Swal.fire({
-                    title: 'success',
-                    text: 'Do you want to success',
-                    icon: 'success'
-                    })
-                }else{
-                    Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to Error',
-                    icon: 'error'
-                    })
-                }
-            })
-            .catch(function (response) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to Error',
-                    icon: 'error'
-                    })
-            });
+            // var contact = {};
+            // formData.forEach(function(value, key){
+            //     contact[key] = value;
+            // });
+            // axios({
+            //     method: 'post',
+            //     url: 'https://ef274516154e.ngrok.io/api/v2/submission',
+            //     data: formData,
+            //         headers: {'Content-Type': 'application/json',
+            //         'Authorization' : 'Bearer '+tokens
+            //     }
+            // }).then(function(response) {
+            //     console.log(response);
+            //     if(response.data.result=="ok"){
+            //         Swal.fire({
+            //         title: 'success',
+            //         text: 'Do you want to success',
+            //         icon: 'success'
+            //         })
+            //     }else{
+            //         Swal.fire({
+            //         title: 'Error!',
+            //         text: 'Do you want to Error',
+            //         icon: 'error'
+            //         })
+            //     }
+            // })
+            // .catch(function (response) {
+            //     Swal.fire({
+            //         title: 'Error!',
+            //         text: 'Do you want to Error',
+            //         icon: 'error'
+            //         })
+            // });
 
         }
     }
