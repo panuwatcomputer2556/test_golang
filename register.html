@@ -83,6 +83,7 @@
                     //console.log(response.data);
                     this.stocks = response.data;
                     console.log(this.stocks);
+                    this.stocks.push({"M_subject" : "123"})
                 })
                 .catch(function (response) {
                    
