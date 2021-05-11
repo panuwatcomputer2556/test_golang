@@ -53,93 +53,95 @@
         <button type="submit" class="btn btn-primary" @click="getContacts()">แสดงข้อมูล</button>
     </div>
 </div>
-<script>
-   //tokens = getCookie("token")
-   tokens = getWithExpiry("storedData")
-    var app = new Vue({
-    el: '#vueapp',
-    data:{
-        mid : '',
-        subject: '',
-        detail: '',
-        teacher: '',
-        stocks: []
-    },
-    mounted: function () {
-        console.log('Hello from Vue!')
-    },
-    created: function () {
-        this.getContacts();
-    },
-    methods: {
-            getContacts: function(){
-            axios({
-                    method: 'get',
-                    url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
-                    headers: {'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer '+tokens
-                    }
-                }).then(function(response) {
-                    console.log(response.data[0]);
-                    this.stocks = response.data[0];
-                })
-                .catch(function (response) {
-                   
-                });
-            },
-            create_register: function(){
-            // console.log("Create contact!")
-            let formData = new FormData();
-            formData.append('mid', this.mid)
-            formData.append('subject', this.subject)
-            formData.append('detail', this.detail)
-            formData.append('teacher', this.teacher)
 
-            var contact = {};
-            formData.forEach(function(value, key){
-                contact[key] = value;
-            });
-            axios({
-                method: 'post',
-                url: 'https://ef274516154e.ngrok.io/api/v2/submission',
-                data: formData,
-                    headers: {'Content-Type': 'application/json',
-                    'Authorization' : 'Bearer '+tokens
-                }
-            }).then(function(response) {
-                console.log(response);
-                if(response.data.result=="ok"){
-                    Swal.fire({
-                    title: 'success',
-                    text: 'Do you want to success',
-                    icon: 'success'
-                    })
-                }else{
-                    Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to Error',
-                    icon: 'error'
-                    })
-                }
-            })
-            .catch(function (response) {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Do you want to Error',
-                    icon: 'error'
-                    })
-            });
-
-        }
-    }
-    })    
-//123
-			
-
-</script>
 
 </body>
 
+
+<script>
+  //tokens = getCookie("token")
+  tokens = getWithExpiry("storedData")
+   var app = new Vue({
+   el: '#vueapp',
+   data:{
+       mid : '',
+       subject: '',
+       detail: '',
+       teacher: '',
+       stocks: []
+   },
+   mounted: function () {
+       console.log('Hello from Vue!')
+   },
+   created: function () {
+       this.getContacts();
+   },
+   methods: {
+           getContacts: function(){
+           axios({
+                   method: 'get',
+                   url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
+                   headers: {'Content-Type': 'application/json',
+                       'Authorization' : 'Bearer '+tokens
+                   }
+               }).then(function(response) {
+                   console.log(response.data[0]);
+                   this.stocks = response.data[0];
+               })
+               .catch(function (response) {
+                  
+               });
+           },
+           create_register: function(){
+           // console.log("Create contact!")
+           let formData = new FormData();
+           formData.append('mid', this.mid)
+           formData.append('subject', this.subject)
+           formData.append('detail', this.detail)
+           formData.append('teacher', this.teacher)
+
+           var contact = {};
+           formData.forEach(function(value, key){
+               contact[key] = value;
+           });
+           axios({
+               method: 'post',
+               url: 'https://ef274516154e.ngrok.io/api/v2/submission',
+               data: formData,
+                   headers: {'Content-Type': 'application/json',
+                   'Authorization' : 'Bearer '+tokens
+               }
+           }).then(function(response) {
+               console.log(response);
+               if(response.data.result=="ok"){
+                   Swal.fire({
+                   title: 'success',
+                   text: 'Do you want to success',
+                   icon: 'success'
+                   })
+               }else{
+                   Swal.fire({
+                   title: 'Error!',
+                   text: 'Do you want to Error',
+                   icon: 'error'
+                   })
+               }
+           })
+           .catch(function (response) {
+               Swal.fire({
+                   title: 'Error!',
+                   text: 'Do you want to Error',
+                   icon: 'error'
+                   })
+           });
+
+       }
+   }
+   })    
+//123
+     
+
+</script>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
