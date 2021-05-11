@@ -85,14 +85,10 @@
                     }
                 }).then(function(response) {
                     console.log(response);
-                    this.stocks = response.data;
+                    this.stocks = response.data.data;
                 })
                 .catch(function (response) {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Do you want to Error',
-                        icon: 'error'
-                        })
+                   
                 });
             },
             create_register: function(){
