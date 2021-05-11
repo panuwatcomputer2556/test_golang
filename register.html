@@ -22,7 +22,7 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td>{{ message }}</td>
+                    <td>{{ stocks.Mid }}</td>
                     <td>ลบ แก้ไข</td>
                 </tr>
             </table>
@@ -32,8 +32,30 @@
      var app = new Vue({
      el: '#app',
      data: {
-        message: 'Hello Vue!'
-     }
+        message: 'Hello Vue!',
+        stocks: []
+     },
+     created: function () {
+        this.getContacts();
+     },
+     methods: {
+            getContacts: function(){
+            axios({
+                    method: 'get',
+                    url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
+                    headers: {'Content-Type': 'application/json',
+                        'Authorization' : 'Bearer '+tokens
+                    }
+                }).then(function(response) {
+                   // console.log(response.data);
+                    this.stocks = response.data;
+                    console.log(this.stocks);
+                })
+                .catch(function (response) {
+                   
+                });
+            }
+        }
      })
 </script>
 
