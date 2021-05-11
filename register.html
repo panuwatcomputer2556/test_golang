@@ -1,149 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script src="Expiry_storedData.js"></script>
-    <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-</head>
-<body>
 
-    <div class="container">
-       
-      <div id="vueapp">
-        <table class="table">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-              </tr>
-              <tr v-for="stocks in stocks">
-                <td>{{stocks.Mid}}</td>
-                <td>{{stocks.M_create}}</td>
-                <td>{{stocks.M_detail}}</td>
-                <td>ลบ แก้ไข</td>
-              </tr>
-          </table>
-          <br>
-          
-        <div class="form-group">
-          <label for="exampleInputEmail1">mid</label>
-          <input type="text" class="form-control" id="mid" v-model="mid">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <title>Tabla</title>
+        <style>
+            body,
+            html {
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="tabla">
+            <div class="container  h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <table class="table table-striped table-bordered table-hover text-center">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in users">
+                                <td>{{user.name}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.phone}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">subject</label>
-          <input type="text" class="form-control" id="subject"  v-model="subject">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">detail</label>
-            <input type="text" class="form-control" id="detail" v-model="detail">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">teacher</label>
-            <input type="text" class="form-control" id="teacher" v-model="teacher">
-          </div>
-        <button type="submit" class="btn btn-primary" @click="create_register()">บันทึกข้อมูล</button>
-        <button type="submit" class="btn btn-primary" @click="getContacts()">แสดงข้อมูล</button>
-    </div>
-</div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#tabla',
+            data: {
+                users: [],
+            },
+            created: function () {
+                this.load();
+            },
+            methods: {
+                load: function () {
+                    axios
+                        .get('https://jsonplaceholder.typicode.com/users')
+                        .then(function (response) {
+                            this.users = response.data;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                }
+            }
+        })
+    </script>
 
-
-</body>
-
-
-<script>
-  //tokens = getCookie("token")
-  tokens = getWithExpiry("storedData")
-   var app = new Vue({
-   el: '#vueapp',
-   data:{
-       mid : '',
-       subject: '',
-       detail: '',
-       teacher: '',
-       stocks: [],
-   },
-   mounted: function () {
-       console.log('Hello from Vue!')
-   },
-   created: function () {
-       this.getContacts();
-   },
-   methods: {
-           getContacts: function(){
-           axios({
-                   method: 'get',
-                   url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
-                   headers: {'Content-Type': 'application/json',
-                       'Authorization' : 'Bearer '+tokens
-                   }
-               }).then(function(response) {
-                   console.log(response.data[0]);
-                   this.stocks = response.data[0];
-               })
-               .catch(function (response) {
-                  
-               });
-           },
-           create_register: function(){
-           // console.log("Create contact!")
-           let formData = new FormData();
-           formData.append('mid', this.mid)
-           formData.append('subject', this.subject)
-           formData.append('detail', this.detail)
-           formData.append('teacher', this.teacher)
-
-           var contact = {};
-           formData.forEach(function(value, key){
-               contact[key] = value;
-           });
-           axios({
-               method: 'post',
-               url: 'https://ef274516154e.ngrok.io/api/v2/submission',
-               data: formData,
-                   headers: {'Content-Type': 'application/json',
-                   'Authorization' : 'Bearer '+tokens
-               }
-           }).then(function(response) {
-               console.log(response);
-               if(response.data.result=="ok"){
-                   Swal.fire({
-                   title: 'success',
-                   text: 'Do you want to success',
-                   icon: 'success'
-                   })
-               }else{
-                   Swal.fire({
-                   title: 'Error!',
-                   text: 'Do you want to Error',
-                   icon: 'error'
-                   })
-               }
-           })
-           .catch(function (response) {
-               Swal.fire({
-                   title: 'Error!',
-                   text: 'Do you want to Error',
-                   icon: 'error'
-                   })
-           });
-
-       }
-   }
-   })    
-//123
-     
-
-</script>
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 </html>
-
