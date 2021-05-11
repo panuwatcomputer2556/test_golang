@@ -60,22 +60,30 @@
 <script>
    //tokens = getCookie("token")
    tokens = getWithExpiry("storedData")
-    export default {
-    data() {
-        return {
+    var app = new Vue({
+    el: '#vueapp',
+    data(){
+        return { 
+        mid : '',
+        subject: '',
+        detail: '',
+        teacher: '',
         stocks: [],
         stocks : {
             Mid : 0,
             M_teacher : '',
-            M_subject : ''
+            M_subject :  ''
         }
-        };
+        }
+    },
+    mounted: function () {
+        console.log('Hello from Vue!')
     },
     created: function () {
         this.getContacts();
     },
     methods: {
-        getContacts: function(){
+            getContacts: function(){
             axios({
                     method: 'get',
                     url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
@@ -89,93 +97,53 @@
                 .catch(function (response) {
                    
                 });
+            },
+            create_register: function(){
+            // console.log("Create contact!")
+            let formData = new FormData();
+            formData.append('mid', this.mid)
+            formData.append('subject', this.subject)
+            formData.append('detail', this.detail)
+            formData.append('teacher', this.teacher)
+
+            var contact = {};
+            formData.forEach(function(value, key){
+                contact[key] = value;
+            });
+            axios({
+                method: 'post',
+                url: 'https://ef274516154e.ngrok.io/api/v2/submission',
+                data: formData,
+                    headers: {'Content-Type': 'application/json',
+                    'Authorization' : 'Bearer '+tokens
+                }
+            }).then(function(response) {
+                console.log(response);
+                if(response.data.result=="ok"){
+                    Swal.fire({
+                    title: 'success',
+                    text: 'Do you want to success',
+                    icon: 'success'
+                    })
+                }else{
+                    Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+                }
+            })
+            .catch(function (response) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+            });
+
         }
     }
-    };
-    // var app = new Vue({
-    // el: '#vueapp',
-    // data(){
-    //     return { 
-    //     mid : '',
-    //     subject: '',
-    //     detail: '',
-    //     teacher: '',
-    //     stocks: [],
-    //     stocks : {
-    //         Mid : 0,
-    //         M_teacher : '11',
-    //         M_subject : '22'
-    //     }
-    //     }
-    // },
-    // // mounted: function () {
-    // //     console.log('Hello from Vue!')
-    // // },
-    // created: function () {
-    //     this.getContacts();
-    // },
-    // methods: {
-    //         getContacts: function(){
-    //         axios({
-    //                 method: 'get',
-    //                 url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
-    //                 headers: {'Content-Type': 'application/json',
-    //                     'Authorization' : 'Bearer '+tokens
-    //                 }
-    //             }).then(function(response) {
-    //                 console.log(response.data);
-    //                 this.stocks = response.data;
-    //             })
-    //             .catch(function (response) {
-                   
-    //             });
-    //         },
-    //         create_register: function(){
-    //         // console.log("Create contact!")
-    //         let formData = new FormData();
-    //         formData.append('mid', this.mid)
-    //         formData.append('subject', this.subject)
-    //         formData.append('detail', this.detail)
-    //         formData.append('teacher', this.teacher)
-
-    //         var contact = {};
-    //         formData.forEach(function(value, key){
-    //             contact[key] = value;
-    //         });
-    //         axios({
-    //             method: 'post',
-    //             url: 'https://ef274516154e.ngrok.io/api/v2/submission',
-    //             data: formData,
-    //                 headers: {'Content-Type': 'application/json',
-    //                 'Authorization' : 'Bearer '+tokens
-    //             }
-    //         }).then(function(response) {
-    //             console.log(response);
-    //             if(response.data.result=="ok"){
-    //                 Swal.fire({
-    //                 title: 'success',
-    //                 text: 'Do you want to success',
-    //                 icon: 'success'
-    //                 })
-    //             }else{
-    //                 Swal.fire({
-    //                 title: 'Error!',
-    //                 text: 'Do you want to Error',
-    //                 icon: 'error'
-    //                 })
-    //             }
-    //         })
-    //         .catch(function (response) {
-    //             Swal.fire({
-    //                 title: 'Error!',
-    //                 text: 'Do you want to Error',
-    //                 icon: 'error'
-    //                 })
-    //         });
-
-    //     }
-    // }
-    // })    
+    })    
 
 			
 
