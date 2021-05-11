@@ -19,10 +19,10 @@
                     <th scope="col">Last</th>
                     <th scope="col">Handle</th>
                 </tr>
-                <tr>
+                <tr v-for="stock in stocks">
                     <td></td>
                     <td></td>
-                    <td>{{ Mid }}</td>
+                    <td>{{ stock.Mid }}</td>
                     <td>ลบ แก้ไข</td>
                 </tr>
             </table>
