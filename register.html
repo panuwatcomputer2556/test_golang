@@ -22,47 +22,19 @@
                 <tr v-for="stock in stocks">
                     <td>{{ stock.Mid }}</td>
                     <td>{{ stock.M_subject }}</td>
-                    <td>{{ data1 }}</td>
+                    <td>{{ message }}</td>
                     <td>ลบ แก้ไข</td>
                 </tr>
             </table>
         </div>
 
-<script>
-   tokens = getWithExpiry("storedData")
-    var app = new Vue({
-    el: '#vueapp',
-    data(){
-        return { 
-        stocks: [],
-        data : "123"
-        }
-    },
-    created: function () {
-        this.getContacts();
-    },
-    methods: {
-            getContacts: function(){
-            axios({
-                    method: 'get',
-                    url: 'https://ef274516154e.ngrok.io/api/v2/getsubmission',
-                    headers: 
-                        {'Content-Type': 'application/json',
-                        'Authorization' : 'Bearer '+tokens
-                    }
-                }).then(function(response) {
-                    this.stocks = response.data;
-                    console.log(this.stocks);
-                })
-                .catch(function (response) {
-                   
-                });  
-            }
-        }
-    })    
-
-			
-
+ <script>
+     var app = new Vue({
+     el: '#app',
+     data: {
+        message: 'Hello Vue!'
+     }
+     })
 </script>
 
 </body>
