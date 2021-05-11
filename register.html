@@ -64,12 +64,7 @@
         subject: '',
         detail: '',
         teacher: '',
-        stocks: [],
-        stocks : {
-            Mid : 0,
-            M_teacher : '',
-            M_subject :  ''
-        }
+        stocks: []
         }
     },
     mounted: function () {
@@ -89,6 +84,7 @@
                 }).then(function(response) {
                     console.log(response.data);
                     this.stocks = response.data;
+                    alert(this.stocks);
                 })
                 .catch(function (response) {
                    
