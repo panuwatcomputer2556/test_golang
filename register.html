@@ -26,9 +26,9 @@
                 <th scope="col">Handle</th>
               </tr>
             </thead>
-            <tbody v-for="datax2 in datax">
-              <tr>
-                <td>{{stocks.mid}}</td>
+            <tbody >
+              <tr v-for="stock in stocks">
+                <td>{{stock.mid}}</td>
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>ลบ แก้ไข</td>
@@ -67,7 +67,7 @@
         subject: '',
         detail: '',
         teacher: '',
-        stocks: []
+        stocks: [],
     },
     mounted: function () {
         console.log('Hello from Vue!')
