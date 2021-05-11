@@ -24,7 +24,7 @@
                 <tr v-for="stock in stocks">
                     <td>{{ stock.Mid }}</td>
                     <td>{{ stock.M_subject }}</td>
-                    <td>{{ stock.M_teacher }}</td>
+                    <td>{{ data1 }}</td>
                     <td>ลบ แก้ไข</td>
                 </tr>
             </table>
@@ -36,7 +36,8 @@
     el: '#vueapp',
     data(){
         return { 
-        stocks: []
+        stocks: [],
+        data : "123"
         }
     },
     created: function () {
