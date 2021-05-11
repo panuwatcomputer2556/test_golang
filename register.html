@@ -68,9 +68,6 @@
     mounted: function () {
         console.log('Hello from Vue!')
     },
-    created: function () {
-        this.getContacts();
-    },
     methods: {
             getContacts: function(){
             axios({
@@ -131,6 +128,9 @@
             });
 
         }
+    },
+    created: function () {
+        this.getContacts();
     }
     })    
 //123
