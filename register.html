@@ -84,8 +84,8 @@
                         'Authorization' : 'Bearer '+tokens
                     }
                 }).then(function(response) {
-                    console.log(response.data.data);
-                    this.stocks = response.data.data;
+                    console.log(response.data);
+                    this.stocks = response.data;
                 })
                 .catch(function (response) {
                    
