@@ -1,70 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <title>Tabla</title>
-        <style>
-            body,
-            html {
-                height: 100%;
-            }
-        </style>
-    </head>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
 
-    <body>
-        <div id="tabla">
-            <div class="container  h-100">
-                <div class="row h-100 justify-content-center align-items-center">
-                    <table class="table table-striped table-bordered table-hover text-center">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="user in users">
-                                <td>{{user.name}}</td>
-                                <td>{{user.username}}</td>
-                                <td>{{user.email}}</td>
-                                <td>{{user.phone}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<script src="Expiry_storedData.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+<div id="app">
+
+
+    <p>Message is: {{ mid }}</p>
+    <!-- Form Input Bindings -->
+    <div class="form-group">
+        <label for="exampleInputEmail1">mid</label>
+        <input type="text" class="form-control" id="mid" v-model="mid">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">subject</label>
+        <input type="text" class="form-control" id="subject"  v-model="subject">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">detail</label>
+          <input type="text" class="form-control" id="detail" v-model="detail">
         </div>
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-        new Vue({
-            el: '#tabla',
-            data: {
-                users: [],
-            },
-            created: function () {
-                this.load();
-            },
-            methods: {
-                load: function () {
-                    axios
-                        .get('https://jsonplaceholder.typicode.com/users')
-                        .then(function (response) {
-                            this.users = response.data;
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        })
-                }
-            }
-        })
-    </script>
+        <div class="form-group">
+          <label for="exampleInputPassword1">teacher</label>
+          <input type="text" class="form-control" id="teacher" v-model="teacher">
+        </div>
+      <button type="submit" class="btn btn-primary" @click="create_register()">บันทึกข้อมูล</button>
 
+  <table>
+      <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>First</th>
+                        <th>Last</th>
+                        <th>Handle</th>
+                        <th>จัดการ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td>{{user.Mid}}</td>
+                        <td>{{user.M_subject}}</td>
+                        <td>{{user.M_teacher}}</td>
+                        <td>{{user.M_create}}</td>
+                        <td>
+                            <!-- <a :href="'/job/' + user.Mid">ลบ</a> -->
+                            <button v-on:click="deletedata" value="123" id="4567">Add 1</button>
+                                <!-- id-->
+                            <button v-on:click="say('hi')">Say hi</button>
+                               <!-- ฟังก์ชั่น -->
+                            <a v-on:click.once="say('hi')">once</a> 
+                            <!-- ทำงานครั้งเดียว -->
+                            <!-- https://vuejs.org/v2/guide/events.html -->
+                           
+                        </td>
+                    </tr>
+                </tbody>
+  </table>
+</div>
+</body>
+
+<script>
+access_token = getWithExpiry("storedData")
+var app = new Vue({
+  el: "#app",
+  data() {
+  	return {
+        mid : '',
+        subject: '',
+        detail: '',
+        teacher: '',
+    	users: []
+    }
+  },
+    mounted: function () {
+    console.log('123')
+    },
+    created: function() {
+        this.showdata();
+    },
+methods: {
+    showdata : function() {
+        axios.get('https://ef274516154e.ngrok.io/api/v2/getsubmission', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization' : `Bearer ${access_token}`
+        }
+        })
+        .then((res) => {
+        //console.log(res.data)
+        this.users = res.data
+        })
+        .catch((error) => {
+        // console.error(error)
+        })
+        },
+     create_register: function(){
+            // console.log("Create contact!")
+            let formData = new FormData();
+            formData.append('mid', this.mid)
+            formData.append('subject', this.subject)
+            formData.append('detail', this.detail)
+            formData.append('teacher', this.teacher)
+
+            var contact = {};
+            formData.forEach(function(value, key){
+                contact[key] = value;
+            });
+            axios({
+                method: 'post',
+                url: 'https://ef274516154e.ngrok.io/api/v2/submission',
+                data: formData,
+                    headers: {'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${access_token}`
+                }
+            }).then(function(response) {
+                console.log(response);
+                if(response.data.result=="ok"){
+                    Swal.fire({
+                    title: 'success',
+                    text: 'Do you want to success',
+                    icon: 'success'
+                    }).then(function(){ 
+                    location.reload();
+                    }
+                    )
+                }else{
+                    Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+                }
+            })
+            .catch(function (response) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to Error',
+                    icon: 'error'
+                    })
+            });
+        },
+        deletedata : function(event) {
+            if (event) {
+               alert(event.target.value)
+            }
+        },
+        say : function(event) {
+            if (event) {
+                alert(event)
+                event.preventDefault()
+            }
+        }
+}
+})
+
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 </html>
